@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'org.springframework.amqp:spring-rabbit'
 	implementation 'org.liquibase:liquibase-core'
+	implementation 'net.logstash.logback:logstash-logback-encoder:8.1'
 	runtimeOnly 'org.postgresql:postgresql'
 	jooqGenerator 'org.jooq:jooq-meta-extensions-liquibase:3.19.31'
 	jooqGenerator 'org.liquibase:liquibase-core'
