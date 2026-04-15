@@ -4,8 +4,8 @@ services:
     container_name: my-colony-postgres
     environment:
       POSTGRES_DB: my_colony
-      POSTGRES_USER: my_colony
-      POSTGRES_PASSWORD: my_colony
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     healthcheck:

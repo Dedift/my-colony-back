@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/my_colony
-    username: postgres
-    password: postgres
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   data:
     redis:
       host: localhost
@@ -12,8 +12,8 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
-    username: my_colony
-    password: my_colony
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     contexts: local
