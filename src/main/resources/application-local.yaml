@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/my_colony
+    username: postgres
+    password: postgres
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  kafka:
+    bootstrap-servers: localhost:9092
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: my_colony
+    password: my_colony
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    contexts: local
+
+management:
+  prometheus:
+    metrics:
+      export:
+        enabled: true
