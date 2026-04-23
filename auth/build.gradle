@@ -1,0 +1,10 @@
+dependencies {
+	implementation platform('org.springframework.boot:spring-boot-dependencies:4.0.5')
+
+	api project(':shared')
+	implementation project(':player')
+	implementation project(':colony')
+
+	implementation 'org.springframework:spring-context'
+	implementation 'org.springframework:spring-tx'
+}

@@ -1,0 +1,44 @@
+type Query {
+  me: MePayload!
+}
+
+type Mutation {
+  register(input: RegisterInput!): RegisterPayload!
+  login(input: LoginInput!): LoginPayload!
+}
+
+input RegisterInput {
+  username: String!
+  displayName: String!
+  email: String!
+  password: String!
+  colonyName: String!
+}
+
+type RegisterPayload {
+  playerId: ID!
+  accessToken: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginPayload {
+  playerId: ID!
+  accessToken: String!
+}
+
+type MePayload {
+  playerId: ID!
+  username: String!
+  displayName: String!
+  role: String!
+  colony: ColonyPayload
+}
+
+type ColonyPayload {
+  id: ID!
+  name: String!
+}

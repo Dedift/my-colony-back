@@ -1,93 +1,39 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '4.0.5'
-	id 'io.spring.dependency-management' version '1.1.7'
-	id 'nu.studer.jooq' version '9.0'
+	id 'org.springframework.boot' version '4.0.5' apply false
+	id 'io.spring.dependency-management' version '1.1.7' apply false
+	id 'nu.studer.jooq' version '9.0' apply false
 }
 
 group = 'sz'
 version = '0.0.1-SNAPSHOT'
 description = 'my-colony-back'
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(25)
-	}
-}
+subprojects {
+	apply plugin: 'java-library'
 
-repositories {
-	mavenCentral()
-}
+	group = rootProject.group
+	version = rootProject.version
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	implementation 'org.springframework.boot:spring-boot-starter-jooq'
-	implementation 'org.springframework.boot:spring-boot-liquibase'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.kafka:spring-kafka'
-	implementation 'org.springframework.amqp:spring-rabbit'
-	implementation 'org.liquibase:liquibase-core'
-	implementation 'net.logstash.logback:logstash-logback-encoder:8.1'
-	runtimeOnly 'org.postgresql:postgresql'
-	jooqGenerator 'org.jooq:jooq-meta-extensions-liquibase:3.19.31'
-	jooqGenerator 'org.liquibase:liquibase-core'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.kafka:spring-kafka-test'
-	testRuntimeOnly 'com.h2database:h2'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-jooq {
-	version = '3.19.31'
-
-	configurations {
-		main {
-			generateSchemaSourceOnCompilation = true
-
-			generationTool {
-				logging = org.jooq.meta.jaxb.Logging.WARN
-				generator {
-					name = 'org.jooq.codegen.JavaGenerator'
-					database {
-						name = 'org.jooq.meta.extensions.liquibase.LiquibaseDatabase'
-						inputSchema = 'PUBLIC'
-						properties {
-							property {
-								key = 'rootPath'
-								value = project.projectDir.absolutePath.replace('\\', '/')
-							}
-							property {
-								key = 'scripts'
-								value = 'src/main/resources/db/changelog/db.changelog-master.yaml'
-							}
-						}
-					}
-					generate {
-						javaTimeTypes = true
-						records = true
-						immutablePojos = true
-						fluentSetters = true
-					}
-					target {
-						packageName = 'sz.mycolonyback.jooq'
-						directory = "${buildDir}/generated-src/jooq/main"
-					}
-				}
-			}
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(25)
 		}
 	}
-}
 
-sourceSets {
-	main {
-		java {
-			srcDir "${buildDir}/generated-src/jooq/main"
-		}
+	repositories {
+		mavenCentral()
 	}
-}
 
-tasks.named('test') {
-	useJUnitPlatform()
+	dependencies {
+		compileOnly 'org.projectlombok:lombok:1.18.38'
+		annotationProcessor 'org.projectlombok:lombok:1.18.38'
+		testCompileOnly 'org.projectlombok:lombok:1.18.38'
+		testAnnotationProcessor 'org.projectlombok:lombok:1.18.38'
+
+		testImplementation 'org.junit.jupiter:junit-jupiter'
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
 }

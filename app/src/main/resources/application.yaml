@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: my-colony-back
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  kafka:
+    bootstrap-servers: localhost:9092
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    contexts: local
+
+server:
+  shutdown: graceful
+
+auth:
+  jwt:
+    secret: ${JWT_SECRET:my-colony-local-jwt-secret-change-me-2026}
+    access-token-ttl: ${JWT_ACCESS_TOKEN_TTL:PT12H}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
