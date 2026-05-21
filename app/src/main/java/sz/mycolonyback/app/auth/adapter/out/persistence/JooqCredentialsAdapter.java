@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import sz.mycolonyback.auth.application.port.out.LoadCredentialsPort;
 import sz.mycolonyback.auth.application.port.out.SaveCredentialsPort;
 import sz.mycolonyback.auth.domain.Credentials;
+import sz.mycolonyback.jooq.tables.records.PlayerCredentialsRecord;
 import sz.mycolonyback.shared.domain.AuditFields;
 import sz.mycolonyback.shared.domain.PlayerId;
-import sz.mycolonyback.jooq.tables.records.PlayerCredentialsRecord;
 
 import java.util.Optional;
 
@@ -16,7 +16,7 @@ import static sz.mycolonyback.jooq.Tables.PLAYER_CREDENTIALS;
 
 @Component
 @RequiredArgsConstructor
-public class JdbcCredentialsAdapter implements LoadCredentialsPort, SaveCredentialsPort {
+public class JooqCredentialsAdapter implements LoadCredentialsPort, SaveCredentialsPort {
 
 	private final DSLContext dslContext;
 
